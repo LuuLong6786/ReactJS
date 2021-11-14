@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, CardImg,CardImgOverlay,CardText,CardBody, CardTitle } from 'reactstrap';
 
 
-class Menu extends Component {
+class DishDetail extends Component {
 
     constructor(props) {
         super(props);
@@ -26,11 +26,33 @@ class Menu extends Component {
                       <CardText>{dish.description}</CardText>
                     </CardBody>
                 </Card>
+               
             );
         else
             return(
                 <div></div>
             );
+    }
+    renderComments(dish){
+        if(dish!=null) 
+            return (
+                <div>
+                    <h4>{'Comments'}</h4>
+                    <div >{dish.comments.map(com =>
+                    <div>
+                        <p>{com.comment}</p>
+                        <p>--{com.author}, {com.date}</p>
+                    </div>
+                   
+                    )}
+                    </div>                    
+                </div>
+
+            );
+        else
+         return(
+            <div></div>
+        );    
     }
 
     render() {
@@ -43,8 +65,10 @@ class Menu extends Component {
                   <CardImgOverlay>
                       <CardTitle>{dish.name}</CardTitle>
                   </CardImgOverlay>
-                </Card>
+                </Card>              
               </div>
+              
+              
             );
         });
 
@@ -57,6 +81,9 @@ class Menu extends Component {
                   <div  className="col-12 col-md-5 m-1">
                     {this.renderDish(this.state.selectedDish)}
                   </div>
+                  <div  className="col-12 col-md-5 m-1">
+                    {this.renderComments(this.state.selectedDish)}
+                  </div>
                 </div>
             </div>
         );
@@ -65,4 +92,4 @@ class Menu extends Component {
 
  
 
-export default Menu;
+export default DishDetail;
