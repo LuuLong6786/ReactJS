@@ -127,7 +127,7 @@ class Header extends Component {
                   type="text"
                   name="username"
                   id="username"
-                  innerRef={(input) => (this.username = input)}
+                  innerRef={(input) => (this.username = input)} //Lấy dữ liệu nhâp vào từ input
                 ></Input>
               </FormGroup>
               <FormGroup>
