@@ -2,4 +2,4 @@ LinkGitHub:
 https://github.com/LuuLong6786/ReactJS.git
 
 BranchName:
- RJS101x_Assignment1_longltfx12870@funix.edu.vn
+ RJS101x_Assignment2_longltfx12870@funix.edu.vn

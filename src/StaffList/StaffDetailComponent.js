@@ -52,6 +52,7 @@ function StaffDetail() {
   //có id của nhân viên trùng với /:staffId
 
   const staff = STAFFS.filter((dish) => dish.id === parseInt(staffId, 10))[0];
+  console.log(staff);
 
   return (
     <div className="container">

@@ -55,21 +55,6 @@ class Header extends Component {
                       <i class="fa fa-money" aria-hidden="true"></i> Bảng Lương
                     </NavLink>
                   </NavItem>
-                  <Nav class="navbar navbar-light bg-light">
-                    <div class="container-fluid">
-                      <form class="d-flex">
-                        <input
-                          class="form-control me-2"
-                          type="search"
-                          placeholder="Search"
-                          aria-label="Search"
-                        ></input>
-                        <button class="btn btn-outline-primary" type="submit">
-                          Search
-                        </button>
-                      </form>
-                    </div>
-                  </Nav>
                 </Nav>
               </Collapse>
             </div>
