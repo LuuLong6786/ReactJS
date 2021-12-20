@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Card,
   CardImg,
-  Form,
   Col,
   Input,
   FormGroup,
@@ -11,6 +10,7 @@ import {
   Modal,
   ModalBody,
   Label,
+  FormFeedback,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { STAFFS } from "../shared/staffs";
@@ -30,25 +30,33 @@ function RenderAllStaffList({ x }) {
 
 //Tạo FunctionComponent để render list nhân viên//
 function StaffListComponent() {
-  const stafflist = STAFFS.map((name) => {
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [searchValue, setSearchValue] = useState("");
+
+  // Lọc nhân viên theo tên
+  const filteredStaff = STAFFS.filter(
+    (staff) =>
+      staff.name.toLowerCase().indexOf(searchValue.toLowerCase()) !== -1
+  );
+
+  // Sau khi lọc xong thì hiển thị list nhân viên lọc lên màn hình
+  const stafflist = filteredStaff.map((name) => {
     return (
       <div className="col-6 col-md-4 col-lg-2">
         <RenderAllStaffList x={name} />
       </div>
     );
   });
-  const [isModalOpen, setModal] = useState(false);
-
   return (
     <div className="container">
-      <Form inline>
+      <div className="row">
         <FormGroup row className="col-12 col-md-6">
           <h4>Nhân viên</h4>
           <button
             type="submit"
             value="submit"
             className="btn btn"
-            onClick={() => setModal(!isModalOpen)}
+            onClick={() => setModalOpen(!isModalOpen)}
           >
             <i class="fa fa-plus-square-o fa-2x" aria-hidden="true"></i>
           </button>
@@ -56,29 +64,34 @@ function StaffListComponent() {
         <FormGroup row className="col-12 col-md-6">
           <Col>
             <Input
-              type="text"
-              name="search"
-              id="search"
+              label="Search Name"
+              icon="search"
               placeholder="Search"
+              onChange={(e) => setSearchValue(e.target.value)}
             ></Input>
           </Col>
-          <Button type="submit" color="primary">
-            Search
-          </Button>
         </FormGroup>
-      </Form>
-      <Modal isOpen={isModalOpen} toggle={() => setModal(!isModalOpen)}>
-        <ModalHeader toggle={() => setModal(!isModalOpen)}>
+      </div>
+
+      <Modal isOpen={isModalOpen} toggle={() => setModalOpen(!isModalOpen)}>
+        <ModalHeader toggle={() => setModalOpen(!isModalOpen)}>
           Thêm nhân viên
         </ModalHeader>
         <ModalBody>
           <FormGroup>
+            <Label>Tên</Label>
+            <Input type="text" name="name"></Input>
+            <FormFeedback>{}</FormFeedback>
+          </FormGroup>
+          <FormGroup>
             <Label>Ngày sinh</Label>
             <Input type="text" name="doB"></Input>
+            <FormFeedback>{}</FormFeedback>
           </FormGroup>
           <FormGroup>
             <Label>Ngày vào công ty</Label>
             <Input type="text name" name="startDate"></Input>
+            <FormFeedback>{}</FormFeedback>
           </FormGroup>
           <FormGroup>
             <Label>Phòng Ban</Label>
