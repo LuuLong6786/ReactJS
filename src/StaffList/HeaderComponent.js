@@ -27,13 +27,13 @@ class Header extends Component {
 
   render() {
     return (
-      <div style={{ background: "lightblue" }}>
-        <Navbar expand="md">
+      <div>
+        <Navbar expand="md" light color="info">
           <div className="container">
             <NavbarToggler onClick={this.toggleNav} />
             <NavbarBrand className="mr-auto" href="/">
               <img src="assets/images/logo.png" height="30" width="41" />
-              <span></span> PHẦN MỀM QUẢN LÝ NHÂN SỰ V1.0
+              <span>PHẦN MỀM QUẢN LÝ NHÂN SỰ V1.0</span>
             </NavbarBrand>
             <div className="float-right">
               <Collapse isOpen={this.state.isNavOpen} navbar>

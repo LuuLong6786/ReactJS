@@ -9,12 +9,6 @@ import Footer from "./FooterComponent";
 import { Routes, Route } from "react-router-dom";
 
 class Main extends Component {
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     staff: STAFFS,
-  //   };
-  // }
   render() {
     return (
       <div>

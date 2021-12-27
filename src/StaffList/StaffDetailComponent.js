@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 import dateFormat from "dateformat";
 
 function RenderStaffInfo({ x }) {
-  if (x != null)
+  if (x != null) {
     return (
       <div className="row">
         <img
@@ -40,6 +40,7 @@ function RenderStaffInfo({ x }) {
         </div>
       </div>
     );
+  }
 }
 function StaffDetail() {
   //The useParams hook returns an object of key/value pairs of the dynamic params
@@ -51,8 +52,8 @@ function StaffDetail() {
   //Truyền dữ liệu STAFFS vào component và lọc lấy dữ liệu
   //có id của nhân viên trùng với /:staffId
 
-  const staff = STAFFS.filter((dish) => dish.id === parseInt(staffId, 10))[0];
-  console.log(staff);
+  const staffs = STAFFS.filter((staff) => staff.id == staffId)[0];
+  console.log(staffs);
 
   return (
     <div className="container">
@@ -61,11 +62,11 @@ function StaffDetail() {
           <BreadcrumbItem>
             <Link to="/nhanvien">Nhân viên</Link>
           </BreadcrumbItem>
-          <BreadcrumbItem active>{staff.name}</BreadcrumbItem>
+          <BreadcrumbItem active>{staffs.name}</BreadcrumbItem>
         </Breadcrumb>
       </div>
       <div classname="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
-        <RenderStaffInfo x={staff} />
+        <RenderStaffInfo x={staffs} />
       </div>
     </div>
   );
