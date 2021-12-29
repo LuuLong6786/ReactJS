@@ -69,14 +69,14 @@ class StaffListComponent extends Component {
       doB: this.state.doB,
       salaryScale: this.state.salaryScale,
       startDate: this.state.startDate,
-      department: this.state.department,
+      department: { name: this.state.department },
       annualLeave: this.state.annualLeave,
       overTime: this.state.overTime,
       salary: this.state.salaryScale * 3000000 + this.state.overTime * 200000,
       image: this.state.image,
     };
     this.toggleModal();
-    return STAFFS.push(newStaff), alert(JSON.stringify(newStaff));
+    return STAFFS.push(newStaff);
   }
   //Tạo method validate với chức năng render
   validate(name, doB, startDate) {
@@ -162,7 +162,7 @@ class StaffListComponent extends Component {
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader>Thêm nhân viên</ModalHeader>
           <ModalBody>
-            <Form onSubmit={this.handleAddNewStaff}>
+            <Form>
               <FormGroup>
                 <Label>Tên</Label>
                 <Input
@@ -245,7 +245,11 @@ class StaffListComponent extends Component {
                 ></Input>
               </FormGroup>
 
-              <Button type="submit" color="primary">
+              <Button
+                type="button"
+                color="primary"
+                onClick={this.handleAddNewStaff}
+              >
                 Thêm
               </Button>
             </Form>
