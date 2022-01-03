@@ -16,7 +16,7 @@ export const ConfigureStore = () => {
       promotions: Promotions,
       leaders: Leaders,
       ...createForms({ feedback: InitialFeedback }),
-    }),
+    }), // even if reload component, the form state will remain//
     applyMiddleware(thunk, logger)
   );
   return store;

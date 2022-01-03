@@ -33,7 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(fetchDishes());
   },
   resetFeedbackForm: () => {
-    dispatch(actions.reset("feedback"));
+    dispatch(actions.reset("feedback")); //reset with model ("feedback") in ContactComponent
   },
 });
 
