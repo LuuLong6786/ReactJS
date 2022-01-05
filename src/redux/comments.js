@@ -6,23 +6,21 @@ export const Comments = (state = { errMess: null, comments: [] }, action) => {
     case ActionTypes.ADD_COMMENTS:
       return {
         ...state,
-        isLoading: false,
+        // isLoading: false,
         errMess: null,
         comments: action.payload,
       };
     case ActionTypes.COMMENTS_FAILED:
       return {
         ...state,
-        isLoading: false,
+        // isLoading: false,
         errmess: action.payload,
         comments: [],
       };
 
     case ActionTypes.ADD_COMMENT: // Chia trường hợp để phân biệt các Action -> sẽ có nhiều case
       var comment = action.payload; //Tạo 1 bản sao của state và update, ko sửa trực tiếp trên state
-      comment.id = state.length;
-      comment.date = new Date().toISOString();
-      return state.concat(comment); //Update state with concat()
+      return { ...state, comments: state.comments.concat(comment) }; //Update state with concat()
 
     default:
       return state;
