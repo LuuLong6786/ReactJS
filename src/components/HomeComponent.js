@@ -11,11 +11,11 @@ import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
 
 function RenderCard({ isLoading, errMess, item }) {
-  if (item == null || isLoading) {
+  if (isLoading) {
     return <Loading />;
   } else if (errMess) {
     return <h4>{errMess}</h4>;
-  } else
+  } else if (item != null)
     return (
       <Card>
         <CardImg src={baseUrl + item.image} alt={item.name} />
