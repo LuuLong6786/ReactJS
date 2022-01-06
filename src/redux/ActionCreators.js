@@ -71,7 +71,7 @@ export const fetchDishes = () => (dispatch) => {
       }
     )
     .then((response) => response.json())
-    .then((dishes) => dispatch(addDishes(dishes)))
+    .then((response) => dispatch(addDishes(response)))
     .catch((error) => dispatch(dishesFailed(error.message)));
 };
 
