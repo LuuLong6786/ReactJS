@@ -1,4 +1,3 @@
-import { COMMENTS } from "../shared/comments";
 import * as ActionTypes from "./ActionTypes";
 // 1 Reducer : nhận 1 action + state hiện tại -> trả về state mới[] ->
 export const Comments = (state = { errMess: null, comments: [] }, action) => {

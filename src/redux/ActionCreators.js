@@ -1,5 +1,4 @@
 import * as ActionTypes from "../redux/ActionTypes"; //Lấy tất cả export from ActionTypes
-import { DISHES } from "../shared/dishes";
 import { baseUrl } from "../shared/baseUrl";
 
 //Create a Action by name: addComment,  for using anywhere. Action is a pure object with Type and Payload (gia tri tham so ma action creator truyen len)

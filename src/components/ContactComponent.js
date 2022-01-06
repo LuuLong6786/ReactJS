@@ -9,7 +9,7 @@ import {
   Row,
 } from "reactstrap";
 import { Link } from "react-router-dom";
-import { Control, Errors, Form, actions } from "react-redux-form";
+import { Control, Errors, Form } from "react-redux-form";
 
 const required = (val) => val && val.length;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -79,7 +79,7 @@ class Contact extends Component {
               >
                 <i className="fa fa-phone"></i> Call
               </a>
-              <a role="button" className="btn btn-info">
+              <a href="skype.com" role="button" className="btn btn-info">
                 <i className="fa fa-skype"></i> Skype
               </a>
               <a
