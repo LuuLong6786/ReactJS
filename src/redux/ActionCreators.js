@@ -48,10 +48,8 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
 //Thunk: Tra ve 1 ham
 export const fetchDishes = () => (dispatch) => {
   dispatch(dishesLoading(true));
-  // setTimeout(() => {
-  //   dispatch(addDishes(DISHES));
-  // }, 2000);
-  return fetch(baseUrl + "dishes")
+
+  return fetch(baseUrl + "dishes") //Fetch dishes from the server//
     .then(
       (response) => {
         if (response.ok) {
@@ -86,6 +84,7 @@ export const addDishes = (dishes) => ({
   payload: dishes,
 });
 
+//Fetch Comments from server//
 export const fetchComments = () => (dispatch) => {
   return fetch(baseUrl + "comments")
     .then(
@@ -120,6 +119,7 @@ export const addComments = (comments) => ({
   payload: comments,
 });
 
+//Fetch Promos from the server//
 export const fetchPromos = () => (dispatch) => {
   dispatch(promosLoading(true));
   return fetch(baseUrl + "promotions")
@@ -156,4 +156,42 @@ export const promosFailed = (errmess) => ({
 export const addPromos = (promos) => ({
   type: ActionTypes.ADD_PROMOS,
   payload: promos,
+});
+
+//A Thunk - Fetch Leaders from the server//
+export const fetchLeaders = () => (dispatch) => {
+  dispatch(leadersLoading(true));
+
+  return fetch(baseUrl + "leaders")
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addLeaders(response)))
+    .catch((error) => dispatch(leadersFailed(error.message)));
+};
+export const addLeaders = (lead) => ({
+  type: ActionTypes.ADD_LEADERS,
+  payload: lead,
+});
+export const leadersFailed = (fail) => ({
+  type: ActionTypes.LEADERS_FAILED,
+  payload: fail,
+});
+export const leadersLoading = () => ({
+  type: ActionTypes.LEADERS_LOADING,
 });
