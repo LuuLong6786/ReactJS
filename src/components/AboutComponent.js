@@ -9,13 +9,14 @@ import {
   CardImg,
 } from "reactstrap";
 import { Link } from "react-router-dom";
+import { baseUrl } from "../shared/baseUrl";
 
 function RenderLeader({ lead }) {
   return (
     <div className="row p-1">
       <CardImg
         className="col-2"
-        src={lead.image}
+        src={baseUrl + lead.image}
         alt={lead.image}
         width="100px"
         height="100px"

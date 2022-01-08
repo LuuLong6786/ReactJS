@@ -195,3 +195,51 @@ export const leadersFailed = (fail) => ({
 export const leadersLoading = () => ({
   type: ActionTypes.LEADERS_LOADING,
 });
+
+//
+export const postFeedbacks =
+  (firstname, lastname, telnum, email, agree, contactType, message) =>
+  (dispatch) => {
+    const newFeedback = {
+      firstname: firstname,
+      lastname: lastname,
+      telnum: telnum,
+      email: email,
+      agree: agree,
+      contactType: contactType,
+      message: message,
+      // date: new Date().toISOString(),
+    };
+    newFeedback.date = new Date().toISOString();
+
+    return fetch(baseUrl + "feedback", {
+      method: "POST",
+      body: JSON.stringify(newFeedback),
+      headers: {
+        "Content-Type": "application/json",
+      },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + ": " + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .catch((error) => {
+        console.log("post comments", error.message);
+        alert("Your feedback could not be posted\nError: " + error.message);
+      });
+  };

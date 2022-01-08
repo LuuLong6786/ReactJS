@@ -14,6 +14,7 @@ import {
   fetchComments,
   fetchPromos,
   fetchLeaders,
+  postFeedbacks,
 } from "../redux/ActionCreators";
 import { actions } from "react-redux-form";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
@@ -30,6 +31,28 @@ const mapDispatchToProps = (dispatch) => ({
   postComment: (dishId, rating, author, comment) => {
     dispatch(postComment(dishId, rating, author, comment));
   },
+  postFeedbacks: (
+    firstname,
+    lastname,
+    telnum,
+    email,
+    agree,
+    contactType,
+    message
+  ) => {
+    dispatch(
+      postFeedbacks(
+        firstname,
+        lastname,
+        telnum,
+        email,
+        agree,
+        contactType,
+        message
+      )
+    );
+  },
+
   fetchDishes: () => {
     dispatch(fetchDishes());
   },
@@ -56,7 +79,6 @@ class Main extends Component {
     this.props.fetchLeaders();
   }
   render() {
-    // console.log("DATA :" + JSON.stringify(this.props.leaders.leaders));
     const HomePage = () => {
       return (
         <Home
@@ -119,13 +141,16 @@ class Main extends Component {
                 exact
                 path="/contactus"
                 component={() => (
-                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                  <Contact
+                    resetFeedbackForm={this.props.resetFeedbackForm}
+                    postFeedbacks={this.props.postFeedbacks}
+                  />
                 )}
               />
               <Route
                 exact
                 path="/aboutus"
-                component={() => <About leaders={this.props.leaders} />}
+                component={() => <About leaders={this.props.leaders.leaders} />}
               />
               <Redirect to="/home" />
             </Switch>
