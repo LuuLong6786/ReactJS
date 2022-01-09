@@ -10,23 +10,27 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function RenderLeader({ lead }) {
   return (
-    <div className="row p-1">
-      <CardImg
-        className="col-2"
-        src={baseUrl + lead.image}
-        alt={lead.image}
-        width="100px"
-        height="100px"
-      />
-      <div className="col-10">
-        <h3>{lead.name}</h3>
-        <p>{lead.designation}</p>
-        <p>{lead.description}</p>
+    <FadeTransform in fadeProps={{ exitOpacity: 0.05 }} duration={1000}>
+      <div className="row p-1">
+        <CardImg
+          className="col-2"
+          src={baseUrl + lead.image}
+          alt={lead.image}
+          width="100px"
+          height="100px"
+        />
+
+        <div className="col-10">
+          <h3>{lead.name}</h3>
+          <p>{lead.designation}</p>
+          <p>{lead.description}</p>
+        </div>
       </div>
-    </div>
+    </FadeTransform>
   );
 }
 
