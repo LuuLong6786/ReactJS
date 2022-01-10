@@ -83,7 +83,6 @@ class StaffListComponent extends Component {
     this.toggleModal();
 
     return this.props.staff.push(newStaff);
-    // localStorage.setItem(newStaff, JSON.stringify(this.props.staff))
   }
 
   render() {

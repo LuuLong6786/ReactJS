@@ -7,8 +7,25 @@ import HomeComponent from "./HomeComponent";
 import Header from "./HeaderComponent";
 import Footer from "./FooterComponent";
 import { Routes, Route } from "react-router-dom";
+import { connect } from "react-redux";
+import { fetchStaffs } from "../redux/ActionCreators";
+
+const mapStateToProps = (state) => {
+  return {
+    staff: state.staffs,
+    // department: state.department,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  fetchStaffs: () => {
+    dispatch(fetchStaffs());
+  },
+});
 
 class Main extends Component {
+  componentDidMount() {
+    this.props.fetchStaffs();
+  }
   render() {
     return (
       <div>
@@ -27,4 +44,4 @@ class Main extends Component {
   }
 }
 
-export default Main;
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
