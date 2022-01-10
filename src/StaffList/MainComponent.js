@@ -12,7 +12,7 @@ import { fetchStaffs } from "../redux/ActionCreators";
 
 const mapStateToProps = (state) => {
   return {
-    staff: state.staffs,
+    staffs: state.staffs,
     // department: state.department,
   };
 };
@@ -33,7 +33,10 @@ class Main extends Component {
         <Routes>
           <Route path="/" element={<HomeComponent />} />
 
-          <Route path="/nhanvien/" element={<StaffListComponent />} />
+          <Route
+            path="/nhanvien/"
+            element={<StaffListComponent staffs={this.props.staffs} />}
+          />
           <Route path="/nhanvien/:staffId" element={<StaffDetail />} />
           <Route path="/phongban/" element={<StaffDepartment />} />
           <Route path="/bangluong/" element={<StaffIncomeComponent />} />

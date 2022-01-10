@@ -22,5 +22,7 @@ export const Staffs = (
         staffs: [],
         errMess: action.payload,
       };
+    default:
+      return state;
   }
 };

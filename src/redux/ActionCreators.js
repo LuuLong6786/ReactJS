@@ -3,6 +3,7 @@ import { baseUrl } from "../shared/baseUrl";
 
 export const fetchStaffs = () => (dispatch) => {
   dispatch(staffsLoading(true));
+
   return fetch(baseUrl + "staffs")
     .then(
       (response) => {
@@ -23,7 +24,7 @@ export const fetchStaffs = () => (dispatch) => {
     )
     .then((response) => response.json())
     .then((response) => dispatch(addStaffs(response)))
-    .catch((error) => dispatch(staffFailed(error)));
+    .catch((error) => dispatch(staffFailed(error.message)));
 };
 
 export const addStaffs = (staffs) => ({

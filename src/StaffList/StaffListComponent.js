@@ -10,18 +10,21 @@ import {
   ModalBody,
   Label,
   Row,
+  CardImgOverlay,
+  CardTitle,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { baseUrl } from "../shared/baseUrl";
 import { connect } from "react-redux";
 
 //Liên kết với store
-const mapStateToProps = (state) => {
-  return {
-    staff: state.staff,
-    department: state.department,
-  };
-};
+// const mapStateToProps = (state) => {
+//   return {
+//     staff: state.staff,
+//     department: state.department,
+//   };
+// };
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !val || val.length >= len;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -33,7 +36,7 @@ class StaffListComponent extends Component {
     this.state = {
       isModalOpen: false,
       searchValue: "",
-      id: [this.props.staff.length], //=STAFFS.length
+      // id: [this.props.staff.length], //=STAFFS.length
       name: "",
       doB: "",
       startDate: "",
@@ -47,7 +50,7 @@ class StaffListComponent extends Component {
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleAddNewStaff = this.handleAddNewStaff.bind(this);
+    // this.handleAddNewStaff = this.handleAddNewStaff.bind(this);
   }
   toggleModal() {
     this.setState({ isModalOpen: !this.state.isModalOpen });
@@ -62,28 +65,28 @@ class StaffListComponent extends Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  handleAddNewStaff(e) {
-    const newStaff = {
-      id: this.state.id,
-      name: this.state.name,
-      doB: this.state.doB,
-      salaryScale: this.state.salaryScale,
-      startDate: this.state.startDate,
+  // handleAddNewStaff(e) {
+  //   const newStaff = {
+  //     id: this.state.id,
+  //     name: this.state.name,
+  //     doB: this.state.doB,
+  //     salaryScale: this.state.salaryScale,
+  //     startDate: this.state.startDate,
 
-      department: {
-        id: `Dept${this.state.id}`,
-        name: this.state.department,
-        numberOfStaff: this.state.id,
-      },
-      annualLeave: this.state.annualLeave,
-      overTime: this.state.overTime,
-      salary: this.state.salaryScale * 3000000 + this.state.overTime * 200000,
-      image: this.state.image,
-    };
-    this.toggleModal();
+  //     department: {
+  //       id: `Dept${this.state.id}`,
+  //       name: this.state.department,
+  //       numberOfStaff: this.state.id,
+  //     },
+  //     annualLeave: this.state.annualLeave,
+  //     overTime: this.state.overTime,
+  //     salary: this.state.salaryScale * 3000000 + this.state.overTime * 200000,
+  //     image: this.state.image,
+  //   };
+  //   this.toggleModal();
 
-    return this.props.staff.push(newStaff);
-  }
+  //   return this.props.staff.push(newStaff);
+  // }
 
   render() {
     //Render 1 staff cụ thể
@@ -92,14 +95,17 @@ class StaffListComponent extends Component {
         <Card>
           {/* Khi click vào sẽ dẫn đến URL: */}
           <Link to={`/nhanvien/${x.id}`}>
-            <CardImg width="100%" src={x.image} />
-            <p>{x.name}</p>
+            <CardImg width="100%" src={baseUrl + x.image} alt={x.name} />
+            <CardImgOverlay>
+              <CardTitle>{x.name}</CardTitle>
+            </CardImgOverlay>
+            {/* <p>{x.name}</p> */}
           </Link>
         </Card>
       );
     };
     //Lấy data từ searchInput ->lọc qua từng mảng
-    const filterStaff = this.props.staff.filter((staff) => {
+    const filterStaff = this.props.staffs.filter((staff) => {
       return (
         staff.name
           .toLowerCase()
@@ -291,4 +297,4 @@ class StaffListComponent extends Component {
   }
 }
 
-export default connect(mapStateToProps)(StaffListComponent); //connect data ở store với componnent
+export default StaffListComponent;
