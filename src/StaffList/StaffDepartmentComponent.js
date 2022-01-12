@@ -10,8 +10,8 @@ function RenderStaffDepartment({ x }) {
     </Card>
   );
 }
-function StaffDepartment() {
-  const listDepartment = DEPARTMENTS.map((dept) => {
+function StaffDepartment(props) {
+  const listDepartment = props.dept.map((dept) => {
     return (
       <div className="col-12 col-md-6 col-lg-4 p-3">
         <RenderStaffDepartment x={dept} />

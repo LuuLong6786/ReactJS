@@ -10,21 +10,11 @@ import {
   ModalBody,
   Label,
   Row,
-  CardImgOverlay,
-  CardTitle,
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { baseUrl } from "../shared/baseUrl";
-import { connect } from "react-redux";
 
-//Liên kết với store
-// const mapStateToProps = (state) => {
-//   return {
-//     staff: state.staff,
-//     department: state.department,
-//   };
-// };
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !val || val.length >= len;
 const maxLength = (len) => (val) => !val || val.length <= len;
@@ -96,22 +86,20 @@ class StaffListComponent extends Component {
           {/* Khi click vào sẽ dẫn đến URL: */}
           <Link to={`/nhanvien/${x.id}`}>
             <CardImg width="100%" src={baseUrl + x.image} alt={x.name} />
-            <CardImgOverlay>
-              <CardTitle>{x.name}</CardTitle>
-            </CardImgOverlay>
-            {/* <p>{x.name}</p> */}
+            <p>{x.name}</p>
           </Link>
         </Card>
       );
     };
-    //Lấy data từ searchInput ->lọc qua từng mảng
-    const filterStaff = this.props.staffs.filter((staff) => {
-      return (
+
+    // Lấy data từ searchInput ->lọc qua từng mảng
+    const filterStaff = this.props.staffs.filter(
+      (staff) =>
         staff.name
           .toLowerCase()
           .indexOf(this.state.searchValue.toLowerCase()) !== -1
-      );
-    });
+    );
+    console.log("filter: " + JSON.stringify(filterStaff));
 
     const stafflist = filterStaff.map((name) => {
       return (
@@ -140,7 +128,7 @@ class StaffListComponent extends Component {
               model=".search"
               label="Search Name"
               placeholder="Search"
-              onChange={this.handleSearch}
+              onChange={(val) => this.handleSearch(val)}
               className="form-control"
             ></Control.text>
           </Col>

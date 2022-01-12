@@ -1,7 +1,6 @@
 import React from "react";
 import { Card } from "reactstrap";
 import { Link } from "react-router-dom";
-import { STAFFS } from "../shared/staffs";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 
 function RenderStaffIncome({ x }) {
@@ -17,8 +16,8 @@ function RenderStaffIncome({ x }) {
     </Card>
   );
 }
-function StaffIncomeComponent() {
-  const StaffIncome = STAFFS.map((name) => {
+function StaffIncomeComponent(props) {
+  const StaffIncome = props.salary.map((name) => {
     return (
       <div className="col-12 col-md-6 col-lg-4 p-3">
         <RenderStaffIncome x={name} />

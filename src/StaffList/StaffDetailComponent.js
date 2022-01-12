@@ -53,7 +53,6 @@ function StaffDetail() {
   //có id của nhân viên trùng với /:staffId
 
   const staffs = STAFFS.filter((staff) => staff.id == staffId)[0];
-  console.log(staffs);
 
   return (
     <div className="container">

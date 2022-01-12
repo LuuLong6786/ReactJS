@@ -38,3 +38,74 @@ export const staffFailed = (errMess) => ({
   action: ActionTypes.STAFFS_FAILED,
   payload: errMess,
 });
+
+export const fetchDept = () => (dispatch) => {
+  dispatch(deptLoading(true));
+  return fetch(baseUrl + "departments")
+    .then(
+      (response) => {
+        if (response.ok) {
+          return response;
+        } else {
+          var error = new Error(
+            "Error :" + response.status + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errmess = new Error(error.message);
+        throw errmess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addDept(response)))
+    .catch((error) => dispatch(deptFailed(error.message)));
+};
+export const addDept = (dept) => ({
+  type: ActionTypes.ADD_DEPARTMENTS,
+  payload: dept,
+});
+export const deptFailed = (dept) => ({
+  type: ActionTypes.DEPARTMENTS_FAILED,
+  payload: dept,
+});
+export const deptLoading = () => ({
+  type: ActionTypes.DEPARTMENTS_LOADING,
+});
+
+export const fetchStaffSalary = () => (dispatch) => {
+  return fetch(baseUrl + "staffsSalary")
+    .then(
+      (response) => {
+        if (response.ok) return response;
+        else {
+          var error = new Error(
+            "ERROR :" + response.status + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errMess = new Error(error.message);
+        throw errMess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addSalary(response)))
+    .catch((error) => dispatch(salaryFailed(error)));
+};
+
+export const addSalary = (sal) => ({
+  type: ActionTypes.ADD_STAFFSALARY,
+  payload: sal,
+});
+export const salaryLoading = () => ({
+  type: ActionTypes.STAFFSALARY_LOADING,
+});
+export const salaryFailed = (sal) => ({
+  type: ActionTypes.STAFFSALARY_FAILED,
+  payload: sal,
+});
