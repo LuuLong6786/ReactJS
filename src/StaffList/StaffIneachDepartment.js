@@ -4,38 +4,37 @@ import { baseUrl } from "../shared/baseUrl";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchStaffInDept } from "../redux/ActionCreators";
 import { useParams } from "react-router-dom";
+import { STAFFS } from "../shared/staffs";
 
 function RenderStaffInDept({ x }) {
   return (
     <Card>
-      <CardImg width="100%" src={baseUrl + x.image} alt={x.image} />
+      <CardImg width="100%" src={"/assets/images/alberto.png"} alt={x.image} />
       <p>{x.name}</p>
     </Card>
   );
 }
 
-function StaffeachDept(props) {
+function StaffeachDept() {
   const { deptId } = useParams(); //get params in url
-
+  console.log("DEPTID " + deptId);
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchStaffInDept(deptId)); //dispatch action in actioncreator with use diapatch
+    dispatch(fetchStaffInDept(deptId)); //dispatch action in actioncreator with use dispatch
   }, []);
 
-  const dept = useSelector((state) => state.staffInDept); // access store and get state saffInDept in store ==> console.log to see what in that.
-
-  console.log("TEST " + JSON.stringify(dept.dept));
+  const dept = useSelector((state) => state.staffInDept); // access store and get state saffInDept in store.
 
   const renderEachStaffInDept = dept.dept.map((ren) => {
     return (
-      <div>
+      <div className="col-6 col-md-4 col-lg-2">
         <RenderStaffInDept x={ren} />
       </div>
     );
   });
 
-  return <div>{renderEachStaffInDept}</div>;
+  return <div className="row">{renderEachStaffInDept}</div>;
 }
 
 export default StaffeachDept;

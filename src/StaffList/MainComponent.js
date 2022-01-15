@@ -21,7 +21,7 @@ const mapStateToProps = (state) => {
     staffs: state.staffs,
     departments: state.departments,
     salary: state.salary,
-    staffInDept: state.staffInDept,
+    // staffInDept: state.staffInDept,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -34,9 +34,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStaffSalary: () => {
     dispatch(fetchStaffSalary());
   },
-  fetchStaffInDept: (id) => {
-    dispatch(fetchStaffInDept(id));
-  },
+  // fetchStaffInDept: (id) => {
+  //   dispatch(fetchStaffInDept(id));
+  // },
 });
 
 class Main extends Component {
@@ -44,7 +44,6 @@ class Main extends Component {
     this.props.fetchStaffs();
     this.props.fetchDept();
     this.props.fetchStaffSalary();
-    // this.props.fetchStaffInDept();
   }
   render() {
     return (

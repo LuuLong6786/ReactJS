@@ -14,6 +14,7 @@ import {
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
 import { baseUrl } from "../shared/baseUrl";
+import { STAFFS } from "../shared/staffs";
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !val || val.length >= len;
@@ -85,7 +86,11 @@ class StaffListComponent extends Component {
         <Card>
           {/* Khi click vào sẽ dẫn đến URL: */}
           <Link to={`/nhanvien/${x.id}`}>
-            <CardImg width="100%" src={baseUrl + x.image} alt={x.name} />
+            <CardImg
+              width="100%"
+              src={"/assets/images/alberto.png"}
+              alt={x.name}
+            />
             <p>{x.name}</p>
           </Link>
         </Card>
@@ -99,7 +104,7 @@ class StaffListComponent extends Component {
           .toLowerCase()
           .indexOf(this.state.searchValue.toLowerCase()) !== -1
     );
-    console.log("filter: " + JSON.stringify(filterStaff));
+    // console.log("filter: " + JSON.stringify(filterStaff));
 
     const stafflist = filterStaff.map((name) => {
       return (

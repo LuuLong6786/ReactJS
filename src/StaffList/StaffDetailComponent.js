@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { STAFFS } from "../shared/staffs";
 import { useParams } from "react-router-dom";
 import dateFormat from "dateformat";
+import { useSelector, useDispatch } from "react-redux";
+import { fetchStaffs } from "../redux/ActionCreators";
 
 function RenderStaffInfo({ x }) {
   if (x != null) {
@@ -47,8 +49,6 @@ function StaffDetail() {
 
   //Get the /:staffId param from URL
   const { staffId } = useParams();
-  //Truyền dữ liệu STAFFS vào component và lọc lấy dữ liệu
-  //có id của nhân viên trùng với /:staffId
 
   const staffs = STAFFS.filter((staff) => staff.id == staffId)[0];
 
