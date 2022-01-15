@@ -1,10 +1,8 @@
 import React from "react";
-
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import { STAFFS } from "../shared/staffs";
 import { useParams } from "react-router-dom";
-
 import dateFormat from "dateformat";
 
 function RenderStaffInfo({ x }) {

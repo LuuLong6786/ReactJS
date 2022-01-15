@@ -12,13 +12,16 @@ import {
   fetchStaffs,
   fetchDept,
   fetchStaffSalary,
+  fetchStaffInDept,
 } from "../redux/ActionCreators";
+import StaffeachDept from "./StaffIneachDepartment";
 
 const mapStateToProps = (state) => {
   return {
     staffs: state.staffs,
     departments: state.departments,
     salary: state.salary,
+    staffInDept: state.staffInDept,
   };
 };
 const mapDispatchToProps = (dispatch) => ({
@@ -31,6 +34,9 @@ const mapDispatchToProps = (dispatch) => ({
   fetchStaffSalary: () => {
     dispatch(fetchStaffSalary());
   },
+  fetchStaffInDept: (id) => {
+    dispatch(fetchStaffInDept(id));
+  },
 });
 
 class Main extends Component {
@@ -38,6 +44,7 @@ class Main extends Component {
     this.props.fetchStaffs();
     this.props.fetchDept();
     this.props.fetchStaffSalary();
+    // this.props.fetchStaffInDept();
   }
   render() {
     return (
@@ -55,6 +62,15 @@ class Main extends Component {
           <Route
             path="/phongban/"
             element={<StaffDepartment dept={this.props.departments.dept} />}
+          />
+          <Route
+            path="/phongban/:deptId"
+            element={
+              <StaffeachDept
+                dept={this.props.staffInDept.dept}
+                fetchStaffInDept={this.props.fetchStaffInDept}
+              />
+            }
           />
           <Route
             path="/bangluong/"

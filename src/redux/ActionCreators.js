@@ -109,3 +109,37 @@ export const salaryFailed = (sal) => ({
   type: ActionTypes.STAFFSALARY_FAILED,
   payload: sal,
 });
+
+export const fetchStaffInDept = (id) => (dispatch) => {
+  return fetch(baseUrl + "departments" + `${id}`)
+    .then(
+      (response) => {
+        if (response.ok) return response;
+        else {
+          var error = new Error(
+            "ERROR :" + response.status + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errMess = new Error(error.message);
+        throw errMess;
+      }
+    )
+    .then((response) => response.json())
+    .then((response) => dispatch(addStaffIndept(response)))
+    .catch((response) => dispatch(staffInDeptFailed(response)));
+};
+export const addStaffIndept = (val) => ({
+  type: ActionTypes.ADD_STAFFINDEPT,
+  payload: val,
+});
+export const staffInDeptFailed = (val) => ({
+  type: ActionTypes.STAFFINDEPT_FAILED,
+  payload: val,
+});
+export const staffInDeptLoad = () => ({
+  type: ActionTypes.STAFFINDEPT_LOADING,
+});
