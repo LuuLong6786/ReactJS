@@ -111,7 +111,7 @@ export const salaryFailed = (sal) => ({
 });
 
 export const fetchStaffInDept = (id) => (dispatch) => {
-  return fetch(baseUrl + "departments" + `${id}`)
+  return fetch(baseUrl + "departments" + `/${id}`)
     .then(
       (response) => {
         if (response.ok) return response;

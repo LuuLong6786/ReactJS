@@ -63,15 +63,7 @@ class Main extends Component {
             path="/phongban/"
             element={<StaffDepartment dept={this.props.departments.dept} />}
           />
-          <Route
-            path="/phongban/:deptId"
-            element={
-              <StaffeachDept
-                dept={this.props.staffInDept.dept}
-                fetchStaffInDept={this.props.fetchStaffInDept}
-              />
-            }
-          />
+          <Route path="/phongban/:deptId" element={<StaffeachDept />} />
           <Route
             path="/bangluong/"
             element={<StaffIncomeComponent salary={this.props.salary.salary} />}

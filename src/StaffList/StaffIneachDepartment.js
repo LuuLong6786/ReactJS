@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
-import {
-  Card,
-  CardImg,
-} from "E:/DEV/Môn 3 - Frontend nâng cao/assignment_4/node_modules/reactstrap/dist/reactstrap.cjs";
+import { Card, CardImg } from "reactstrap";
 import { baseUrl } from "../shared/baseUrl";
-import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { fetchStaffInDept } from "../redux/ActionCreators";
+import { useParams } from "react-router-dom";
 
 function RenderStaffInDept({ x }) {
   return (
@@ -17,15 +15,19 @@ function RenderStaffInDept({ x }) {
 }
 
 function StaffeachDept(props) {
-  const deptEach = props.dept;
+  const { deptId } = useParams(); //get params in url
 
-  const deptId = useParams(); //Gán depId ở Link (StaffDepartmentComponents)
-  const staffs = useSelector((state) => console.log("state", state));
-  console.log("TRY IT ", staffs);
-  //   useEffect(() => {
-  //     props.fetchStaffInDept(1);
-  //   });
-  const renderEachStaffInDept = deptEach.map((ren) => {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchStaffInDept(deptId)); //dispatch action in actioncreator with use diapatch
+  }, []);
+
+  const dept = useSelector((state) => state.staffInDept); // access store and get state saffInDept in store ==> console.log to see what in that.
+
+  console.log("TEST " + JSON.stringify(dept.dept));
+
+  const renderEachStaffInDept = dept.dept.map((ren) => {
     return (
       <div>
         <RenderStaffInDept x={ren} />
