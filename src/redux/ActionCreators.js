@@ -143,3 +143,49 @@ export const staffInDeptFailed = (val) => ({
 export const staffInDeptLoad = () => ({
   type: ActionTypes.STAFFINDEPT_LOADING,
 });
+export const addNewStaff =
+  (name, doB, startDate, departmentId, salaryScale, annualLeave, overTime) =>
+  (dispatch) => {
+    const newStaff = {
+      id: "",
+      name: name,
+      doB: doB,
+      startDate: startDate,
+      departmentId: departmentId,
+      salaryScale: salaryScale,
+      annualLeave: annualLeave,
+      overTime: overTime,
+      image: "/asset/images/alberto.png",
+      salary: salaryScale * 3000000 + overTime * 200000,
+    };
+    return fetch(baseUrl + "staffs", {
+      method: "POST",
+      body: JSON.stringify(newStaff),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin",
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + " :" + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .catch((error) => {
+        console.log("ERROR MESSAGE " + error.message);
+        alert(
+          "Your POST newstaff could not be posted\nError: " + error.message
+        );
+      });
+  };

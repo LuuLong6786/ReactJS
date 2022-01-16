@@ -27,21 +27,21 @@ class StaffListComponent extends Component {
     this.state = {
       isModalOpen: false,
       searchValue: "",
-      // id: [this.props.staff.length], //=STAFFS.length
-      name: "",
-      doB: "",
-      startDate: "",
-      salaryScale: "",
-      department: "",
-      annualLeave: "",
-      overTime: "",
-      salary: "",
-      image: "/assets/images/alberto.png",
+      // // id: [this.props.staff.length], //=STAFFS.length
+      // name: "",
+      // doB: "",
+      // startDate: "",
+      // salaryScale: "",
+      // department: "",
+      // annualLeave: "",
+      // overTime: "",
+      // salary: "",
+      // image: "/assets/images/alberto.png",
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
-    // this.handleAddNewStaff = this.handleAddNewStaff.bind(this);
+    this.handleAddNewStaff = this.handleAddNewStaff.bind(this);
   }
   toggleModal() {
     this.setState({ isModalOpen: !this.state.isModalOpen });
@@ -56,28 +56,18 @@ class StaffListComponent extends Component {
     this.setState({ ...this.state, [name]: value });
   }
 
-  // handleAddNewStaff(e) {
-  //   const newStaff = {
-  //     id: this.state.id,
-  //     name: this.state.name,
-  //     doB: this.state.doB,
-  //     salaryScale: this.state.salaryScale,
-  //     startDate: this.state.startDate,
-
-  //     department: {
-  //       id: `Dept${this.state.id}`,
-  //       name: this.state.department,
-  //       numberOfStaff: this.state.id,
-  //     },
-  //     annualLeave: this.state.annualLeave,
-  //     overTime: this.state.overTime,
-  //     salary: this.state.salaryScale * 3000000 + this.state.overTime * 200000,
-  //     image: this.state.image,
-  //   };
-  //   this.toggleModal();
-
-  //   return this.props.staff.push(newStaff);
-  // }
+  handleAddNewStaff(values) {
+    this.toggleModal();
+    this.props.addNewStaff(
+      values.name,
+      values.doB,
+      values.startDate,
+      values.departmentId,
+      values.salaryScale,
+      values.annualLeave,
+      values.overTime
+    );
+  }
 
   render() {
     //Render 1 staff cụ thể
@@ -98,12 +88,7 @@ class StaffListComponent extends Component {
     };
 
     // Lấy data từ searchInput ->lọc qua từng mảng
-    const filterStaff = this.props.staffs.filter(
-      (staff) =>
-        staff.name
-          .toLowerCase()
-          .indexOf(this.state.searchValue.toLowerCase()) !== -1
-    );
+    const filterStaff = this.props.staffs; //.filter(staff => staff.toLowercase().indexOf(this.state.searchValue.toLowercase()) ==-1)
     // console.log("filter: " + JSON.stringify(filterStaff));
 
     const stafflist = filterStaff.map((name) => {
@@ -144,7 +129,7 @@ class StaffListComponent extends Component {
         <Modal isOpen={this.state.isModalOpen} toggle={this.toggleModal}>
           <ModalHeader>Thêm nhân viên</ModalHeader>
           <ModalBody>
-            <LocalForm>
+            <LocalForm onSubmit={(val) => this.handleAddNewStaff(val)}>
               <Row className="form-group">
                 <Label md={3}>Tên</Label>
                 <Col md={9}>
@@ -272,12 +257,7 @@ class StaffListComponent extends Component {
                   ></Control>
                 </Col>
               </Row>
-              <Button
-                type="button"
-                onClick={this.handleAddNewStaff}
-                color="primary"
-                block
-              >
+              <Button type="submit" color="primary" block>
                 Thêm
               </Button>
             </LocalForm>
