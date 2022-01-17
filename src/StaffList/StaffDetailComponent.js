@@ -1,20 +1,20 @@
-import React, { useEffect } from "react";
+/* eslint-disable react/jsx-pascal-case */
+import React from "react";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
-import { STAFFS } from "../shared/staffs";
 import { useParams } from "react-router-dom";
 import dateFormat from "dateformat";
-import { useSelector, useDispatch } from "react-redux";
-import { fetchStaffs } from "../redux/ActionCreators";
+import { deleteStaff } from "../redux/ActionCreators";
+import { Button } from "reactstrap";
 
-function RenderStaffInfo({ x }) {
+function RenderStaffInfo({ x, y }) {
   if (x != null) {
     return (
       <div className="row">
         <img
           className="col-12 col-md-4 col-lg-3"
           top
-          src={x.image}
+          src={"/assets/images/alberto.png"}
           alt={x.image}
           width="200px"
         />
@@ -29,7 +29,7 @@ function RenderStaffInfo({ x }) {
             <b>Ngày vào công ty:</b> {dateFormat(x.startDate, "dd/mm/yyyy")}
           </p>
           <p>
-            <b>Phòng ban:</b> {x.department.name}
+            <b>Phòng ban:</b> {x.departmentId}
           </p>
           <p>
             <b>Số ngày nghỉ còn lại:</b> {x.annualLeave}
@@ -42,15 +42,15 @@ function RenderStaffInfo({ x }) {
     );
   }
 }
-function StaffDetail() {
-  //The useParams hook returns an object of key/value pairs of the dynamic params
-  //from the current URL that were matched by the <Route path>.
-  //Child routes inherit all params from their parent routes.
-
+function StaffDetail(props) {
   //Get the /:staffId param from URL
   const { staffId } = useParams();
 
-  const staffs = STAFFS.filter((staff) => staff.id == staffId)[0];
+  const staffs = props.staffs.filter((staff) => staff.id == staffId)[0];
+
+  // console.log("STAFFS " + JSON.stringify(staffs));
+  const handleDeleteStaff = () => deleteStaff(staffId);
+  const handleUpdateInfoStaff = () => {};
 
   return (
     <div className="container">
@@ -64,6 +64,22 @@ function StaffDetail() {
       </div>
       <div classname="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
         <RenderStaffInfo x={staffs} />
+        <Button
+          type="buton"
+          color="info"
+          outline
+          onClick={handleUpdateInfoStaff()}
+        >
+          Cập nhật thông tin
+        </Button>
+        <Button
+          type="button"
+          color="danger"
+          outline
+          onClick={handleDeleteStaff()}
+        >
+          Xóa
+        </Button>
       </div>
     </div>
   );

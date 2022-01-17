@@ -151,7 +151,7 @@ export const addNewStaff =
       name: name,
       doB: doB,
       startDate: startDate,
-      departmentId: departmentId,
+      departmentId: { name: departmentId },
       salaryScale: salaryScale,
       annualLeave: annualLeave,
       overTime: overTime,
@@ -162,7 +162,7 @@ export const addNewStaff =
       method: "POST",
       body: JSON.stringify(newStaff),
       headers: { "Content-Type": "application/json" },
-      credentials: "same-origin",
+      credentials: "same-origin", //gửi thông tin đăng nhập nếu URL yêu cầu có cùng nguồn gốc với tập lệnh gọi
     })
       .then(
         (response) => {
@@ -189,3 +189,36 @@ export const addNewStaff =
         );
       });
   };
+
+export const deleteStaff = (id) => (dispatch) => {
+  return fetch(baseUrl + "staffs" + `/${id}`, {
+    method: "DELETE",
+    headers: { "Content-Type": "application/json" },
+    credentials: "same-origin",
+  })
+    .then(
+      (response) => {
+        // console.log("RES " + JSON.stringify(response));
+        if (response.ok) return response;
+        else {
+          var error = new Error(
+            "Error " + response.status + ": " + response.statusText
+          );
+          error.response = response;
+          throw error;
+        }
+      },
+      (error) => {
+        var errMess = new Error(error.message);
+        throw errMess;
+      }
+    )
+    .then(
+      (response) => response.json(),
+      alert("This staff had been deleted. Please reload the page.")
+    )
+    .catch((error) => {
+      console.log("ERROR MESSAGE " + error.message);
+      alert("Your DELETE Staff could not be deleted\nError: " + error.message);
+    });
+};

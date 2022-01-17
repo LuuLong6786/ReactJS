@@ -13,8 +13,6 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
-import { baseUrl } from "../shared/baseUrl";
-import { STAFFS } from "../shared/staffs";
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !val || val.length >= len;
@@ -27,16 +25,6 @@ class StaffListComponent extends Component {
     this.state = {
       isModalOpen: false,
       searchValue: "",
-      // // id: [this.props.staff.length], //=STAFFS.length
-      // name: "",
-      // doB: "",
-      // startDate: "",
-      // salaryScale: "",
-      // department: "",
-      // annualLeave: "",
-      // overTime: "",
-      // salary: "",
-      // image: "/assets/images/alberto.png",
     };
     this.toggleModal = this.toggleModal.bind(this);
     this.handleSearch = this.handleSearch.bind(this);
@@ -62,7 +50,7 @@ class StaffListComponent extends Component {
       values.name,
       values.doB,
       values.startDate,
-      values.departmentId,
+      values.departmentId.name,
       values.salaryScale,
       values.annualLeave,
       values.overTime
@@ -88,7 +76,14 @@ class StaffListComponent extends Component {
     };
 
     // Lấy data từ searchInput ->lọc qua từng mảng
-    const filterStaff = this.props.staffs; //.filter(staff => staff.toLowercase().indexOf(this.state.searchValue.toLowercase()) ==-1)
+    const filterStaff = this.props.staffs;
+
+    // .filter(
+    //   (staff) =>
+    //     staff.name
+    //       .toLowerCase()
+    //       .indexOf(this.state.searchValue.toLowerCase()) !== -1
+    // );
     // console.log("filter: " + JSON.stringify(filterStaff));
 
     const stafflist = filterStaff.map((name) => {

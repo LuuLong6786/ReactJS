@@ -17,7 +17,6 @@ function RenderStaffInDept({ x }) {
 
 function StaffeachDept() {
   const { deptId } = useParams(); //get params in url
-  console.log("DEPTID " + deptId);
   const dispatch = useDispatch();
 
   useEffect(() => {
