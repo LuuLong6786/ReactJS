@@ -151,7 +151,7 @@ export const addNewStaff =
       name: name,
       doB: doB,
       startDate: startDate,
-      departmentId: { name: departmentId },
+      departmentId: departmentId,
       salaryScale: salaryScale,
       annualLeave: annualLeave,
       overTime: overTime,
@@ -182,6 +182,7 @@ export const addNewStaff =
         }
       )
       .then((response) => response.json())
+      .then((response) => dispatch(addStaffs(response)))
       .catch((error) => {
         console.log("ERROR MESSAGE " + error.message);
         alert(
@@ -215,7 +216,9 @@ export const deleteStaff = (id) => (dispatch) => {
     )
     .then(
       (response) => response.json(),
-      alert("This staff had been deleted. Please reload the page.")
+      alert("This staff had been deleted. Please reload the page.").then(
+        (response) => dispatch(addStaffs(response))
+      )
     )
     .catch((error) => {
       console.log("ERROR MESSAGE " + error.message);

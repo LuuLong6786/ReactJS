@@ -1,11 +1,20 @@
 /* eslint-disable react/jsx-pascal-case */
-import React from "react";
-import { Breadcrumb, BreadcrumbItem } from "reactstrap";
-import { Link } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import React, { useState } from "react";
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  Button,
+  Col,
+  ModalHeader,
+  Modal,
+  ModalBody,
+  Label,
+  Row,
+} from "reactstrap";
+import { Link, useParams } from "react-router-dom";
 import dateFormat from "dateformat";
 import { deleteStaff } from "../redux/ActionCreators";
-import { Button } from "reactstrap";
+import { Control, LocalForm, Errors } from "react-redux-form";
 
 function RenderStaffInfo({ x, y }) {
   if (x != null) {
@@ -50,7 +59,15 @@ function StaffDetail(props) {
 
   // console.log("STAFFS " + JSON.stringify(staffs));
   const handleDeleteStaff = () => deleteStaff(staffId);
-  const handleUpdateInfoStaff = () => {};
+
+  const [isModalOpen, setModal] = useState(false);
+  const toggleModal = () => {
+    setModal(!isModalOpen);
+  };
+
+  const handleUpdateInfoStaff = () => {
+    toggleModal();
+  };
 
   return (
     <div className="container">
@@ -65,10 +82,10 @@ function StaffDetail(props) {
       <div classname="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
         <RenderStaffInfo x={staffs} />
         <Button
-          type="buton"
+          type="button"
           color="info"
           outline
-          onClick={handleUpdateInfoStaff()}
+          onClick={handleUpdateInfoStaff}
         >
           Cập nhật thông tin
         </Button>
@@ -81,6 +98,106 @@ function StaffDetail(props) {
           Xóa
         </Button>
       </div>
+
+      {/* Modal */}
+      <Modal isOpen={isModalOpen} toggle={toggleModal}>
+        <ModalHeader>Chỉnh sửa nhân viên</ModalHeader>
+        <ModalBody>
+          <LocalForm>
+            <Row className="form-group">
+              <Label md={3}>Tên</Label>
+              <Col md={9}>
+                <Control.text
+                  className="form-control"
+                  model=".name"
+                  placeholder="Nhập tên đầy đủ"
+                  name="name"
+                ></Control.text>
+                {/* <Errors></Errors> */}
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label md={3}>Ngày sinh</Label>
+              <Col md={9}>
+                <Control
+                  className="form-control"
+                  model=".doB"
+                  type="date"
+                  name="doB"
+                ></Control>
+                {/* <Errors></Errors> */}
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label md={3}>Ngày vào công ty</Label>
+              <Col md={9}>
+                <Control
+                  className="form-control"
+                  model=".startDate"
+                  type="date"
+                  name="startDate"
+                ></Control>
+                {/* <Errors></Errors> */}
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label md={3}>Phòng Ban</Label>
+              <Col md={9}>
+                <Control.select
+                  className="form-control"
+                  model=".department"
+                  name="department"
+                >
+                  <option value="" disabled selected>
+                    Chọn phòng ban
+                  </option>
+                  <option value="Sale">Sale</option>
+                  <option value="HR">HR</option>
+                  <option value="Marketing">Marketing</option>
+                  <option value="IT">IT</option>
+                  <option value="Finance">Finance</option>
+                </Control.select>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label md={3}>Hệ số lương</Label>
+              <Col md={9}>
+                <Control
+                  className="form-control"
+                  model=".salaryScale"
+                  type="number"
+                  name="salaryScale"
+                ></Control>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label md={3}>Số ngày nghỉ còn lại</Label>
+              <Col md={9}>
+                <Control
+                  className="form-control"
+                  model=".annualLeave"
+                  type="number"
+                  name="annualLeave"
+                ></Control>
+              </Col>
+            </Row>
+            <Row className="form-group">
+              <Label md={3}>Số ngày đã làm thêm</Label>
+              <Col md={9}>
+                <Control
+                  className="form-control"
+                  model=".overTime"
+                  type="number"
+                  name="overTime"
+                ></Control>
+              </Col>
+            </Row>
+            <Button type="button" color="primary" block>
+              Chỉnh sửa
+            </Button>
+          </LocalForm>
+        </ModalBody>
+      </Modal>
     </div>
   );
 }

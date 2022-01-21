@@ -50,11 +50,12 @@ class StaffListComponent extends Component {
       values.name,
       values.doB,
       values.startDate,
-      values.departmentId.name,
+      values.departmentId,
       values.salaryScale,
       values.annualLeave,
       values.overTime
     );
+    alert("The new staff have been added successfully!");
   }
 
   render() {
@@ -76,14 +77,12 @@ class StaffListComponent extends Component {
     };
 
     // Lấy data từ searchInput ->lọc qua từng mảng
-    const filterStaff = this.props.staffs;
-
-    // .filter(
-    //   (staff) =>
-    //     staff.name
-    //       .toLowerCase()
-    //       .indexOf(this.state.searchValue.toLowerCase()) !== -1
-    // );
+    const filterStaff = this.props.staffs.filter(
+      (staff) =>
+        staff.name
+          .toLowerCase()
+          .indexOf(this.state.searchValue.toLowerCase()) !== -1
+    );
     // console.log("filter: " + JSON.stringify(filterStaff));
 
     const stafflist = filterStaff.map((name) => {
