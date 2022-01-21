@@ -100,6 +100,7 @@ class Main extends Component {
     return (
       <div>
         <Header />
+
         <Routes>
           <Route path="/" element={<HomeComponent />} />
 
@@ -133,6 +134,7 @@ class Main extends Component {
             element={<StaffIncomeComponent salary={this.props.salary.salary} />}
           />
         </Routes>
+
         <Footer />
       </div>
     );

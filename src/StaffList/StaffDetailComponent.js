@@ -15,39 +15,48 @@ import { Link, useParams } from "react-router-dom";
 import dateFormat from "dateformat";
 import { deleteStaff } from "../redux/ActionCreators";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { Fade, Stagger } from "react-animation-components";
 
 function RenderStaffInfo({ x, y }) {
   if (x != null) {
     return (
-      <div className="row">
-        <img
-          className="col-12 col-md-4 col-lg-3"
-          top
-          src={"/assets/images/alberto.png"}
-          alt={x.image}
-          width="200px"
-        />
-        <div className="col-12 col-md-8 col-lg-9" style={{ textAlign: "left" }}>
-          <h3>
-            <b>Họ và tên:</b> {x.name}
-          </h3>
-          <p>
-            <b>Ngày sinh:</b> {dateFormat((x.doB, "dd/mm/yyyy"))}
-          </p>
-          <p>
-            <b>Ngày vào công ty:</b> {dateFormat(x.startDate, "dd/mm/yyyy")}
-          </p>
-          <p>
-            <b>Phòng ban:</b> {y.name}
-          </p>
-          <p>
-            <b>Số ngày nghỉ còn lại:</b> {x.annualLeave}
-          </p>
-          <p>
-            <b>Số giờ đã làm thêm:</b> {x.overTime}{" "}
-          </p>
-        </div>
-      </div>
+      <Stagger in>
+        <Fade in>
+          <div className="row">
+            <img
+              className="col-12 col-md-4 col-lg-3"
+              top
+              src={"/assets/images/alberto.png"}
+              alt={x.image}
+              width="200px"
+            />
+
+            <div
+              className="col-12 col-md-8 col-lg-9"
+              style={{ textAlign: "left" }}
+            >
+              <h3>
+                <b>Họ và tên:</b> {x.name}
+              </h3>
+              <p>
+                <b>Ngày sinh:</b> {dateFormat((x.doB, "dd/mm/yyyy"))}
+              </p>
+              <p>
+                <b>Ngày vào công ty:</b> {dateFormat(x.startDate, "dd/mm/yyyy")}
+              </p>
+              <p>
+                <b>Phòng ban:</b> {y.name}
+              </p>
+              <p>
+                <b>Số ngày nghỉ còn lại:</b> {x.annualLeave}
+              </p>
+              <p>
+                <b>Số giờ đã làm thêm:</b> {x.overTime}{" "}
+              </p>
+            </div>
+          </div>
+        </Fade>
+      </Stagger>
     );
   }
 }

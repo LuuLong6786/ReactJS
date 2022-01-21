@@ -13,6 +13,7 @@ import {
 } from "reactstrap";
 import { Link } from "react-router-dom";
 import { Control, LocalForm, Errors } from "react-redux-form";
+import { FadeTransform } from "react-animation-components";
 
 const required = (val) => val && val.length;
 const minLength = (len) => (val) => !val || val.length >= len;
@@ -62,17 +63,24 @@ class StaffListComponent extends Component {
     //Render 1 staff cụ thể
     const RenderAllStaffList = ({ x }) => {
       return (
-        <Card>
-          {/* Khi click vào sẽ dẫn đến URL: */}
-          <Link to={`/nhanvien/${x.id}`}>
-            <CardImg
-              width="100%"
-              src={"/assets/images/alberto.png"}
-              alt={x.name}
-            />
-            <p>{x.name}</p>
-          </Link>
-        </Card>
+        <FadeTransform
+          in
+          transformProps={{
+            exitTransform: "scale(0.5) translateY(-50%)",
+          }}
+        >
+          <Card>
+            {/* Khi click vào sẽ dẫn đến URL: */}
+            <Link to={`/nhanvien/${x.id}`}>
+              <CardImg
+                width="100%"
+                src={"/assets/images/alberto.png"}
+                alt={x.name}
+              />
+              <p>{x.name}</p>
+            </Link>
+          </Card>
+        </FadeTransform>
       );
     };
 
