@@ -15,6 +15,7 @@ import {
   fetchStaffInDept,
   addNewStaff,
   deleteStaff,
+  updateStaff,
 } from "../redux/ActionCreators";
 import StaffeachDept from "./StaffIneachDepartment";
 
@@ -63,6 +64,29 @@ const mapDispatchToProps = (dispatch) => ({
   deleteStaff: () => {
     dispatch(deleteStaff());
   },
+  updateStaff: (
+    id,
+    name,
+    doB,
+    startDate,
+    departmentId,
+    salaryScale,
+    annualLeave,
+    overTime
+  ) => {
+    dispatch(
+      updateStaff(
+        id,
+        name,
+        doB,
+        startDate,
+        departmentId,
+        salaryScale,
+        annualLeave,
+        overTime
+      )
+    );
+  },
 });
 
 class Main extends Component {
@@ -72,6 +96,7 @@ class Main extends Component {
     this.props.fetchStaffSalary();
   }
   render() {
+    // console.log("UPDATE" + JSON.stringify(this.props.updateStaff));
     return (
       <div>
         <Header />
@@ -90,7 +115,13 @@ class Main extends Component {
 
           <Route
             path="/nhanvien/:staffId"
-            element={<StaffDetail staffs={this.props.staffs.staffs} />}
+            element={
+              <StaffDetail
+                staffs={this.props.staffs.staffs}
+                dept={this.props.departments.dept}
+                updateStaff={this.props.updateStaff}
+              />
+            }
           />
           <Route
             path="/phongban/"

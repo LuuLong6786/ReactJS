@@ -200,18 +200,18 @@ class StaffListComponent extends Component {
                 <Col md={9}>
                   <Control.select
                     className="form-control"
-                    model=".department"
-                    name="department"
+                    model=".departmentId"
+                    name="departmentId"
                     onChange={this.handleInputChange}
                   >
                     <option value="" disabled selected>
                       Chọn phòng ban
                     </option>
-                    <option value="Sale">Sale</option>
-                    <option value="HR">HR</option>
-                    <option value="Marketing">Marketing</option>
-                    <option value="IT">IT</option>
-                    <option value="Finance">Finance</option>
+                    <option value="Dept01">Sale</option>
+                    <option value="Dept02">HR</option>
+                    <option value="Dept03">Marketing</option>
+                    <option value="Dept04">IT</option>
+                    <option value="Dept05">Finance</option>
                   </Control.select>
                 </Col>
               </Row>

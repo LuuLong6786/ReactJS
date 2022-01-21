@@ -225,3 +225,60 @@ export const deleteStaff = (id) => (dispatch) => {
       alert("Your DELETE Staff could not be deleted\nError: " + error.message);
     });
 };
+
+export const updateStaff =
+  (
+    id,
+    name,
+    doB,
+    startDate,
+    departmentId,
+    salaryScale,
+    annualLeave,
+    overTime
+  ) =>
+  (dispatch) => {
+    const updateStaff = {
+      id: id,
+      name: name,
+      doB: doB,
+      startDate: startDate,
+      departmentId: departmentId,
+      salaryScale: salaryScale,
+      annualLeave: annualLeave,
+      overTime: overTime,
+      image: "/asset/images/alberto.png",
+      salary: salaryScale * 3000000 + overTime * 200000,
+    };
+    // console.log("UPDATE " + JSON.stringify(updateStaff));
+
+    return fetch(baseUrl + "staffs", {
+      method: "PATCH",
+      body: JSON.stringify(updateStaff),
+      headers: { "Content-Type": "application/json" },
+      credentials: "same-origin", //gửi thông tin đăng nhập nếu URL yêu cầu có cùng nguồn gốc với tập lệnh gọi
+    })
+      .then(
+        (response) => {
+          if (response.ok) {
+            return response;
+          } else {
+            var error = new Error(
+              "Error " + response.status + " :" + response.statusText
+            );
+            error.response = response;
+            throw error;
+          }
+        },
+        (error) => {
+          var errmess = new Error(error.message);
+          throw errmess;
+        }
+      )
+      .then((response) => response.json())
+      .then((response) => dispatch(addStaffs(response)))
+      .catch((error) => {
+        console.log("ERROR MESSAGE " + error.message);
+        alert("Your Update could not be updated\nError: " + error.message);
+      });
+  };

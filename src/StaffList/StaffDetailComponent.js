@@ -38,7 +38,7 @@ function RenderStaffInfo({ x, y }) {
             <b>Ngày vào công ty:</b> {dateFormat(x.startDate, "dd/mm/yyyy")}
           </p>
           <p>
-            <b>Phòng ban:</b> {x.departmentId}
+            <b>Phòng ban:</b> {y.name}
           </p>
           <p>
             <b>Số ngày nghỉ còn lại:</b> {x.annualLeave}
@@ -57,7 +57,13 @@ function StaffDetail(props) {
 
   const staffs = props.staffs.filter((staff) => staff.id == staffId)[0];
 
+  const deptname = props.dept.filter(
+    (dept) => dept.id === staffs.departmentId
+  )[0];
+
+  // console.log("DEPT " + JSON.stringify(deptname));
   // console.log("STAFFS " + JSON.stringify(staffs));
+
   const handleDeleteStaff = () => deleteStaff(staffId);
 
   const [isModalOpen, setModal] = useState(false);
@@ -65,8 +71,19 @@ function StaffDetail(props) {
     setModal(!isModalOpen);
   };
 
-  const handleUpdateInfoStaff = () => {
+  const handleUpdateInfoStaff = (values) => {
+    props.updateStaff(
+      staffId,
+      values.name,
+      values.doB,
+      values.startDate,
+      values.departmentId,
+      values.salaryScale,
+      values.annualLeave,
+      values.overTime
+    );
     toggleModal();
+    alert("Successfully updated");
   };
 
   return (
@@ -80,13 +97,8 @@ function StaffDetail(props) {
         </Breadcrumb>
       </div>
       <div classname="row" style={{ marginTop: "10%", marginBottom: "10%" }}>
-        <RenderStaffInfo x={staffs} />
-        <Button
-          type="button"
-          color="info"
-          outline
-          onClick={handleUpdateInfoStaff}
-        >
+        <RenderStaffInfo x={staffs} y={deptname} />
+        <Button type="button" color="info" outline onClick={toggleModal}>
           Cập nhật thông tin
         </Button>
         <Button
@@ -103,7 +115,7 @@ function StaffDetail(props) {
       <Modal isOpen={isModalOpen} toggle={toggleModal}>
         <ModalHeader>Chỉnh sửa nhân viên</ModalHeader>
         <ModalBody>
-          <LocalForm>
+          <LocalForm onSubmit={(val) => handleUpdateInfoStaff(val)}>
             <Row className="form-group">
               <Label md={3}>Tên</Label>
               <Col md={9}>
@@ -112,6 +124,7 @@ function StaffDetail(props) {
                   model=".name"
                   placeholder="Nhập tên đầy đủ"
                   name="name"
+                  defaultValue={staffs.name}
                 ></Control.text>
                 {/* <Errors></Errors> */}
               </Col>
@@ -124,6 +137,7 @@ function StaffDetail(props) {
                   model=".doB"
                   type="date"
                   name="doB"
+                  defaultValue={staffs.doB}
                 ></Control>
                 {/* <Errors></Errors> */}
               </Col>
@@ -136,6 +150,7 @@ function StaffDetail(props) {
                   model=".startDate"
                   type="date"
                   name="startDate"
+                  defaultValue={staffs.startDate}
                 ></Control>
                 {/* <Errors></Errors> */}
               </Col>
@@ -145,17 +160,18 @@ function StaffDetail(props) {
               <Col md={9}>
                 <Control.select
                   className="form-control"
-                  model=".department"
-                  name="department"
+                  model=".departmentId"
+                  name="departmentId"
+                  defaultValue={staffs.departmentId}
                 >
                   <option value="" disabled selected>
                     Chọn phòng ban
                   </option>
-                  <option value="Sale">Sale</option>
-                  <option value="HR">HR</option>
-                  <option value="Marketing">Marketing</option>
-                  <option value="IT">IT</option>
-                  <option value="Finance">Finance</option>
+                  <option value="Dept01">Sale</option>
+                  <option value="Dept02">HR</option>
+                  <option value="Dept03">Marketing</option>
+                  <option value="Dept04">IT</option>
+                  <option value="Dept05">Finance</option>
                 </Control.select>
               </Col>
             </Row>
@@ -167,6 +183,7 @@ function StaffDetail(props) {
                   model=".salaryScale"
                   type="number"
                   name="salaryScale"
+                  defaultValue={staffs.salaryScale}
                 ></Control>
               </Col>
             </Row>
@@ -178,6 +195,7 @@ function StaffDetail(props) {
                   model=".annualLeave"
                   type="number"
                   name="annualLeave"
+                  defaultValue={staffs.annualLeave}
                 ></Control>
               </Col>
             </Row>
@@ -189,10 +207,11 @@ function StaffDetail(props) {
                   model=".overTime"
                   type="number"
                   name="overTime"
+                  defaultValue={staffs.overTime}
                 ></Control>
               </Col>
             </Row>
-            <Button type="button" color="primary" block>
+            <Button type="submit" color="primary" block>
               Chỉnh sửa
             </Button>
           </LocalForm>
