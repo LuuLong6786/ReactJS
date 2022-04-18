@@ -115,6 +115,7 @@ function StaffDetail(props) {
           color="danger"
           outline
           onClick={handleDeleteStaff()}
+          href="/nhanvien"
         >
           Xóa
         </Button>

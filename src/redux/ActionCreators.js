@@ -35,7 +35,7 @@ export const staffsLoading = () => ({
   type: ActionTypes.STAFFS_LOADING,
 });
 export const staffFailed = (errMess) => ({
-  action: ActionTypes.STAFFS_FAILED,
+  type: ActionTypes.STAFFS_FAILED,
   payload: errMess,
 });
 
@@ -216,8 +216,8 @@ export const deleteStaff = (id) => (dispatch) => {
     )
     .then(
       (response) => response.json(),
-      alert("This staff had been deleted. Please reload the page.").then(
-        (response) => dispatch(addStaffs(response))
+      alert("This staff had been deleted.").then((response) =>
+        dispatch(addStaffs(response))
       )
     )
     .catch((error) => {
